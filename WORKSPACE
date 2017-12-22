@@ -6,13 +6,13 @@ git_repository(
     tag = "0.3.1",
 )
 
-load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories")
+load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories", "npm_install")
 node_repositories(package_json = ["//:package.json"])
 
 git_repository(
     name = "build_bazel_rules_typescript",
-    remote = "https://github.com/bazelbuild/rules_typescript.git",
-    tag = "0.7.1",
+    remote = "https://github.com/mrmeku/rules_typescript.git",
+    commit = "ad92d2f62edb962c82ff1b5588158c82b1e431f2",
 )
 
 load("@build_bazel_rules_typescript//:setup.bzl", "ts_setup_workspace")
@@ -21,7 +21,7 @@ ts_setup_workspace()
 
 local_repository(
     name = "angular",
-    path = "node_modules/@angular/bazel",
+    path = "../angular/packages/bazel",
 )
 
 local_repository(
@@ -58,3 +58,18 @@ load("@io_bazel_rules_go//go:def.bzl", "go_rules_dependencies", "go_register_too
 go_rules_dependencies()
 
 go_register_toolchains()
+
+npm_install(
+    name = "angular_bazel_example_prod_deps",
+    package_json = "//:package.prodserver.json",
+)
+
+git_repository(
+    name = "io_bazel_rules_closure",
+    remote = "https://github.com/mrmeku/rules_closure.git",
+    commit = "294f8129a76bc6cff2af1b5421c41699fd35a61b",
+)
+
+load("@io_bazel_rules_closure//closure:defs.bzl", "closure_repositories")
+
+closure_repositories()

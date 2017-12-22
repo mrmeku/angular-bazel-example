@@ -1,13 +1,15 @@
 package(default_visibility = ["//visibility:public"])
 
 exports_files(["tsconfig.json"])
+load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_library")    
 
 # NOTE: this will move to node_modules/BUILD in a later release
 filegroup(
     name = "node_modules",
     # NB: rxjs is not in this list, because we build it from sources using the
     # label @rxjs//:rxjs
-    srcs = glob(["/".join([
+    srcs = ["node_modules/lite-server/bin/lite-server"] + glob(
+        ["/".join([
         "node_modules",
         pkg,
         "**",
@@ -62,5 +64,26 @@ filegroup(
         "//:node_modules/zone.js/dist/sync-test.js",
         "//:node_modules/zone.js/dist/proxy.min.js",
         "//:node_modules/zone.js/dist/jasmine-patch.js",
+    ],
+)
+
+filegroup(
+    name = "closure_angular_bundles",
+    # do not sort
+    srcs = [
+        "//:node_modules/hammerjs/hammer.js",
+
+        "//:node_modules/zone.js/dist/zone_externs.js",
+
+        "//:node_modules/@angular/core/src/testability/testability.externs.js", 
+
+        "//:node_modules/@angular/core/package.json",
+        "//:node_modules/@angular/core/esm2015/core.js",
+
+        "//:node_modules/@angular/common/package.json",
+        "//:node_modules/@angular/common/esm2015/common.js",
+
+        "//:node_modules/@angular/platform-browser/package.json",
+        "//:node_modules/@angular/platform-browser/esm2015/platform-browser.js",
     ],
 )
