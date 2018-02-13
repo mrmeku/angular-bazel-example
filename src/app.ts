@@ -1,6 +1,6 @@
 
 import {Component, NgModule} from '@angular/core';
-import {FlexLayoutModule} from '@angular/flex-layout';
+import {MatButtonModule} from '@angular/material';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {HelloWorldModule} from './hello-world/hello-world.module';
@@ -12,7 +12,7 @@ export class BootstrapComponent {}
   imports: [
     BrowserModule,
     HelloWorldModule,
-    FlexLayoutModule,
+    MatButtonModule,
   ],
   declarations: [BootstrapComponent],
   bootstrap: [BootstrapComponent],

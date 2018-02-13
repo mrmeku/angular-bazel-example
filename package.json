@@ -5,9 +5,11 @@
     "license": "Apache 2.0",
     "dependencies": {
         "@angular/animations": "5.2.4",
+        "@angular/cdk": "^5.2.1",
         "@angular/common": "5.2.4",
         "@angular/core": "5.2.4",
-        "@angular/flex-layout": "^2.0.0-beta.12",
+        "@angular/forms": "^5.2.4",
+        "@angular/material": "^5.2.1",
         "@angular/platform-browser": "5.2.4",
         "rxjs": "5.5.6",
         "zone.js": "0.8.20"
@@ -33,7 +35,6 @@
         "pree2e": "bazel build test/...",
         "e2e": "concurrently \"bazel run //src:prodserver\" \"while ! nc -z 127.0.0.1 8080; do sleep 1; done && protractor\" --kill-others --success first",
         "prebuildifier": "bazel build @com_github_bazelbuild_buildtools//buildifier",
-        "buildifier": "note: working around https://github.com/alexeagle/angular-bazel-example/issues/60",
         "buildifier": "find . -type f \\( -name BUILD -or -name BUILD.bazel \\) ! -path \"./node_modules/*\" | xargs $(bazel info bazel-bin)/external/com_github_bazelbuild_buildtools/buildifier/*/buildifier",
         "format": "git-clang-format",
         "precommit": "check-clang-format \"yarn format\""
