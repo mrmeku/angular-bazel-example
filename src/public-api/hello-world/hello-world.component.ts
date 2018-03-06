@@ -1,5 +1,5 @@
 import {Component, NgModule} from '@angular/core';
-import {msg} from '../lib/file';
+import {msg} from '../../lib/file';
 
 @Component({
   selector: 'hello-world-app',
@@ -9,6 +9,4 @@ import {msg} from '../lib/file';
   `,
   styleUrls: ['./hello-world-styles.css']
 })
-export class HelloWorldComponent {
-  name: string = msg;
-}
+export class HelloWorldComponent { name: string = msg; }
