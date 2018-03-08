@@ -3,12 +3,22 @@ package(default_visibility = ["//visibility:public"])
 load("@angular//:index.bzl", "ng_module")
 
 ng_module(
-    name = "src",
+    name = "src_with_ts_lib",
     srcs = glob(["*.ts"]),
     tsconfig = ":tsconfig.json",
     deps = [
         "//src/hello-world",
-        "@external_rule",
+        "@external_rule//:ts_library",
+    ],
+)
+
+ng_module(
+    name = "src_with_ng_module",
+    srcs = glob(["*.ts"]),
+    tsconfig = ":tsconfig.json",
+    deps = [
+        "//src/hello-world",
+        "@external_rule//:ng_module",
     ],
 )
 
