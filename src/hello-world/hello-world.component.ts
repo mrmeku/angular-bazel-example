@@ -1,4 +1,5 @@
 import {Component, NgModule} from '@angular/core';
+import {EchoServiceApi} from 'angular_bazel_example/api/echo_service_openapi_angular_service_codegen';
 import {msg} from '../lib/file';
 
 @Component({

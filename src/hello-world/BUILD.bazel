@@ -23,6 +23,7 @@ ng_module(
     tsconfig = "//src:tsconfig.json",
     deps = [
         "//src/lib",
+        "//api:echo_service_ts_library",
         "@rxjs",
     ],
 )

@@ -67,12 +67,21 @@ http_archive(
     sha256 = "feba3278c13cde8d67e341a837f69a029f698d7a27ddbb2a202be7a10b22142a",
 )
 
+http_archive(
+    name = "bazel_gazelle",
+    url = "https://github.com/bazelbuild/bazel-gazelle/releases/download/0.10.1/bazel-gazelle-0.10.1.tar.gz",
+    sha256 = "d03625db67e9fb0905bbd206fa97e32ae9da894fe234a493e7517fd25faec914",
+)
+
 load("@io_bazel_rules_go//go:def.bzl", "go_rules_dependencies", "go_register_toolchains")
 
 go_rules_dependencies()
 
 go_register_toolchains()
 
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+
+gazelle_dependencies()
 
 ####################################
 # Tell Bazel about some workspaces that were installed from npm.
@@ -85,3 +94,32 @@ local_repository(
     name = "rxjs",
     path = "node_modules/rxjs/src",
 )
+
+####################################
+# GRPC Gateway
+grpc_gateway_version = "739cd2db2d2fb68c640b39110c364a2ade7ef53b"
+
+http_archive(
+    name = "grpc_ecosystem_grpc_gateway",
+    url = "https://github.com/grpc-ecosystem/grpc-gateway/archive/{v}.zip".format(v = grpc_gateway_version),
+    strip_prefix = "grpc-gateway-{v}".format(v = grpc_gateway_version),
+    sha256 = "d3da02226e8758d72f6eef5349de741c52398a666ebfb893744f5b9a5269e67c",
+)
+
+load("@grpc_ecosystem_grpc_gateway//:repositories.bzl", "repositories")
+
+repositories()
+
+######################################
+# Meetup Rules One API
+
+rules_openapi_version = "4b2355648ee123dae56c9f3a94365593842b7862"
+
+local_repository(
+    name = "io_bazel_rules_openapi",
+    commit = rules_openapi_version,
+    remote = "git@github.com:meetup/rules_openapi.git",
+)
+
+load("@io_bazel_rules_openapi//openapi:openapi.bzl", "openapi_repositories")
+openapi_repositories()

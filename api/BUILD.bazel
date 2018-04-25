@@ -1,0 +1,22 @@
+load("@grpc_ecosystem_grpc_gateway//protoc-gen-swagger:defs.bzl", "protoc_gen_swagger")
+load("@io_bazel_rules_openapi//openapi:openapi.bzl", "openapi_gen")
+load("@build_bazel_rules_typescript//:defs.bzl", "ts_library", "ts_web_test")
+
+package(default_visibility = ["//visibility:public"])
+
+proto_library(
+    name = "echo_service",
+    srcs = ["echo_service.proto"],
+    deps = ["@com_github_googleapis_googleapis//google/api:api_proto"],
+)
+
+protoc_gen_swagger(
+    name = "echo_service_gen_swagger",
+    proto = ":echo_service",
+)
+
+openapi_gen(
+    name = "echo_service_openapi_angular_service",
+    spec = ":echo_service_gen_swagger",
+    language = "typescript-angular2",
+)
