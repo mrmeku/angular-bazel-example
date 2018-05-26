@@ -6,7 +6,7 @@ alias(
 )
 
 exports_files(["tsconfig.json"])
-
+exports_files(["node_modules/protobufjs"])
 # NOTE: this will move to node_modules/BUILD in a later release
 filegroup(
     name = "node_modules",
@@ -23,6 +23,7 @@ filegroup(
         "tsickle",
         "tsutils",
         "typescript",
+        "protobufjs",
         "@types",
     ] for ext in [
         "*.js",

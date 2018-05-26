@@ -1,0 +1,4 @@
+COMMAND    PID   USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+Google    7333 mrmeku  190u  IPv6 0xb357779da7875a55      0t0  TCP localhost:62189->localhost:postgresql (CLOSE_WAIT)
+Google    7333 mrmeku  195u  IPv6 0xb357779da79a6cd5      0t0  TCP localhost:62190->localhost:postgresql (CLOSE_WAIT)
+Google    7333 mrmeku  200u  IPv6 0xb357779da79a6155      0t0  TCP localhost:62191->localhost:postgresql (CLOSE_WAIT)
