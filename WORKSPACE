@@ -42,6 +42,13 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_webtesting/archive/v0.2.0.zip",
     strip_prefix = "rules_webtesting-0.2.0",
     sha256 = "cecc12f07e95740750a40d38e8b14b76fefa1551bef9332cb432d564d693723c",
+
+####################################
+# Fetch and install the Sass rules
+git_repository(
+    name = "io_bazel_rules_sass",
+    remote = "https://github.com/bazelbuild/rules_sass.git",
+    tag = "0.0.3",
 )
 
 # Runs the Sass CSS preprocessor
