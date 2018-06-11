@@ -42,13 +42,6 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_webtesting/archive/v0.2.0.zip",
     strip_prefix = "rules_webtesting-0.2.0",
     sha256 = "cecc12f07e95740750a40d38e8b14b76fefa1551bef9332cb432d564d693723c",
-
-####################################
-# Fetch and install the Sass rules
-git_repository(
-    name = "io_bazel_rules_sass",
-    remote = "https://github.com/bazelbuild/rules_sass.git",
-    tag = "0.0.3",
 )
 
 # Runs the Sass CSS preprocessor
@@ -109,11 +102,29 @@ load("@io_bazel_rules_sass//sass:sass_repositories.bzl", "sass_repositories")
 
 sass_repositories()
 
-####################################
-# Setup our local toolchain
+#####################################
+# GRPC Gateway dependencies and rules
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
-yarn_install(
-    name = "history-server_runtime_deps",
-    package_json = "//tools/history-server:package.json",
-    yarn_lock = "//tools/history-server:yarn.lock",
+gazelle_dependencies()
+
+grpc_gateway_version = "739cd2db2d2fb68c640b39110c364a2ade7ef53b"
+
+http_archive(
+    name = "grpc_ecosystem_grpc_gateway",
+    url = "https://github.com/grpc-ecosystem/grpc-gateway/archive/{v}.zip".format(v = grpc_gateway_version),
+    strip_prefix = "grpc-gateway-{v}".format(v = grpc_gateway_version),
+    sha256 = "d3da02226e8758d72f6eef5349de741c52398a666ebfb893744f5b9a5269e67c",
+)
+
+load("@grpc_ecosystem_grpc_gateway//:repositories.bzl", "repositories")
+
+repositories()
+
+##########################################################
+# Swagger Code Gen Jar for producing Angular HTTP Services
+http_jar(
+    name = "io_swagger_swagger_codegen_cli",
+    url = "https://oss.sonatype.org/content/repositories/snapshots/io/swagger/swagger-codegen-cli/2.4.0-SNAPSHOT/swagger-codegen-cli-2.4.0-20180611.162651-269.jar",
+    sha256 = "4fa9c74f00fc969cc15326f95c61f6d699e434371a9d02461b4f5fdbdc7a8381",
 )

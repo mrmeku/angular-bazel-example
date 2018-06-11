@@ -9,7 +9,13 @@ package(default_visibility = ["//visibility:public"])
 proto_library(
     name = "echo_service",
     srcs = ["echo_service.proto"],
-    deps = ["@com_github_googleapis_googleapis//google/api:api_proto"],
+    deps = [
+        "@com_github_googleapis_googleapis//google/api:api_proto",
+                "@com_google_protobuf//:duration_proto",
+        "@com_google_protobuf//:empty_proto",
+        "@com_google_protobuf//:timestamp_proto",
+        "@com_google_protobuf//:wrappers_proto",
+        ],
 )
 
 go_proto_library(
@@ -30,6 +36,8 @@ go_library(
     name = "go_default_library",
     embed = [":echo_service_go_proto"],
     importpath = "angular_bazel_example/api/echo_service",
+    deps = [
+    ]
 )
 
 protoc_gen_swagger(
@@ -41,15 +49,15 @@ swagger_gen(
     name = "echo_service_typescript_angular",
     spec = ":echo_service_gen_swagger",
     language = "typescript-angular",
-    additional_properties = "ngVersion=5",
+    additional_properties = "ngVersion=6",
     outs = [
         "api.module.ts",
         "api/api.ts",
+        "model/examplepbSimpleMessage.ts",
         "api/echoService.service.ts",
         "configuration.ts",
         "encoder.ts",
         "index.ts",
-        "model/examplepbSimpleMessage.ts",
         "model/models.ts",
         "variables.ts",
     ],

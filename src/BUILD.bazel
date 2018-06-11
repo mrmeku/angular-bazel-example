@@ -10,8 +10,7 @@ ng_module(
     ],
     tsconfig = ":tsconfig.json",
     deps = [
-        "//src/hello-world",
-        "//src/todos",
+        "@rxjs"
     ],
 )
 
@@ -21,7 +20,6 @@ ts_devserver(
     name = "devserver",
     additional_root_paths = [
         "angular_bazel_example/node_modules/zone.js/dist",
-        "angular_bazel_example/node_modules/@ngrx/store/bundles",
     ],
     entry_module = "angular_bazel_example/src/main",
     scripts = [
@@ -31,7 +29,6 @@ ts_devserver(
     serving_path = "/bundle.min.js",
     static_files = [
         "//:node_modules/zone.js/dist/zone.min.js",
-        "//:node_modules/@ngrx/store/bundles/store.umd.min.js",
         "index.html",
     ],
     deps = ["//src"],
@@ -52,15 +49,4 @@ genrule(
     srcs = ["//:node_modules/zone.js/dist/zone.min.js"],
     outs = ["zone.min.js"],
     cmd = "cp $< $@",
-)
-
-load("//tools/history-server:index.bzl", "history_server")
-
-history_server(
-    name = "prodserver",
-    data = [
-        "index.html",
-        ":bundle",
-        ":zonejs",
-    ],
 )
